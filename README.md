@@ -10,8 +10,7 @@
 
 ---
 
-<!-- Add a demo GIF here once recorded -->
-<!-- ![Demo](./demo.gif) -->
+<video src="assets/demo.mp4" controls width="100%"></video>
 
 ## Why MXClip ?
 
