@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+venv/
+
+# Build output
+dist/
+
+# Environment variables
+.env
+
+# Video files
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+
+# Model weights
+*.pt
+*.bin
+*.onnx
+models/
+
+# Output clips and analysis
+output/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+*.log
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo

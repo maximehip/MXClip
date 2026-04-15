@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MXClip</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+
+    <div class="titlebar">
+      <div class="titlebar-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <span class="titlebar-title">MXClip</span>
+      <span class="titlebar-username" id="titlebar-username"></span>
+      <button class="btn-gear" id="btn-settings" title="Paramètres">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="10" cy="10" r="2.8"/>
+          <path d="M10 2.5v1.8M10 15.7v1.8M2.5 10h1.8M15.7 10h1.8M4.7 4.7l1.3 1.3M14 14l1.3 1.3M4.7 15.3l1.3-1.3M14 6l1.3-1.3"/>
+        </svg>
+      </button>
+    </div>
+
+    <div id="screen-setup" class="screen active">
+      <div class="setup-wrap">
+        <div class="setup-hero">
+          <img src="logo.svg" alt="MXClip" width="56" height="56" class="setup-logo" />
+          <h2 class="setup-title" data-i18n="setup.title">Initialisation</h2>
+          <p class="setup-subtitle" id="setup-subtitle" data-i18n="setup.subtitle">Vérification des modèles IA…</p>
+        </div>
+        <div class="setup-models">
+
+          <div class="setup-row" id="setup-row-whisper">
+            <div class="srow-left">
+              <span class="srow-icon">🎙️</span>
+              <div class="srow-info">
+                <span class="srow-name">Whisper</span>
+                <span class="srow-desc" data-i18n="setup.whisper.desc">Transcription audio</span>
+              </div>
+            </div>
+            <div class="srow-right">
+              <div class="srow-bar-track"><div class="srow-bar-fill" id="bar-whisper"></div></div>
+              <span class="srow-pct" id="pct-whisper">—</span>
+              <span class="srow-status" id="status-whisper"></span>
+            </div>
+          </div>
+
+          <div class="setup-row" id="setup-row-nomic">
+            <div class="srow-left">
+              <span class="srow-icon">🧠</span>
+              <div class="srow-info">
+                <span class="srow-name">nomic-embed-text</span>
+                <span class="srow-desc" data-i18n="setup.nomic.desc">Embeddings vectoriels</span>
+              </div>
+            </div>
+            <div class="srow-right">
+              <div class="srow-bar-track"><div class="srow-bar-fill" id="bar-nomic"></div></div>
+              <span class="srow-pct" id="pct-nomic">—</span>
+              <span class="srow-status" id="status-nomic"></span>
+            </div>
+          </div>
+
+          <div class="setup-row" id="setup-row-gemma">
+            <div class="srow-left">
+              <span class="srow-icon">💬</span>
+              <div class="srow-info">
+                <span class="srow-name">gemma4:e4b</span>
+                <span class="srow-desc" data-i18n="setup.gemma.desc">Analyse sémantique</span>
+              </div>
+            </div>
+            <div class="srow-right">
+              <div class="srow-bar-track"><div class="srow-bar-fill" id="bar-gemma"></div></div>
+              <span class="srow-pct" id="pct-gemma">—</span>
+              <span class="srow-status" id="status-gemma"></span>
+            </div>
+          </div>
+
+          <div class="setup-row" id="setup-row-fastvlm">
+            <div class="srow-left">
+              <span class="srow-icon">👁️</span>
+              <div class="srow-info">
+                <span class="srow-name">FastVLM</span>
+                <span class="srow-desc" data-i18n="setup.fastvlm.desc">Vision · Apple Silicon</span>
+              </div>
+            </div>
+            <div class="srow-right">
+              <div class="srow-bar-track"><div class="srow-bar-fill" id="bar-fastvlm"></div></div>
+              <span class="srow-pct" id="pct-fastvlm">—</span>
+              <span class="srow-status" id="status-fastvlm"></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-home" class="screen">
+      <div class="home-wrap">
+        <div class="home-hero">
+          <div class="logo-glow">
+            <img src="logo.svg" alt="MXCLip logo" width="80" height="80"/>
+          </div>
+          <h1 class="home-title">MXClip</h1>
+          <p class="home-sub" data-i18n="home.subtitle">Analyse tes vidéos et streams en temps réel</p>
+        </div>
+
+        <div class="home-cards">
+          <button class="home-card" id="btn-goto-video">
+            <div class="hcard-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="2" y="4" width="16" height="13" rx="2"/>
+                <path d="M18 9l4-2v7l-4-2"/>
+              </svg>
+            </div>
+            <div class="hcard-body">
+              <span class="hcard-title" data-i18n="home.videoCard.title">Analyser une vidéo</span>
+              <span class="hcard-desc" data-i18n="home.videoCard.desc">Pose des questions sur n'importe quelle vidéo ou détecte les meilleurs moments</span>
+            </div>
+            <span class="hcard-arrow">→</span>
+          </button>
+
+          <button class="home-card" id="btn-goto-stream">
+            <div class="hcard-icon hcard-icon--live">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                <path d="M8.5 8.5a5 5 0 0 0 0 7M15.5 8.5a5 5 0 0 1 0 7"/>
+                <path d="M5.5 5.5a9 9 0 0 0 0 13M18.5 5.5a9 9 0 0 1 0 13"/>
+              </svg>
+            </div>
+            <div class="hcard-body">
+              <span class="hcard-title" data-i18n="home.streamCard.title">Live stream</span>
+              <span class="hcard-desc" data-i18n="home.streamCard.desc">Surveille un stream Twitch et réponds à des questions en direct</span>
+            </div>
+            <span class="hcard-arrow">→</span>
+          </button>
+        </div>
+
+        <p class="home-tip" data-i18n="home.tip">💡 Tes analyses sont mises en cache — relancer la même vidéo est instantané</p>
+      </div>
+    </div>
+
+    <div id="screen-video-config" class="screen">
+      <div class="nav-bar">
+        <button class="btn-back" id="back-video-config">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
+          <span data-i18n="nav.back">Retour</span>
+        </button>
+        <div class="nav-steps">
+          <span class="step active" data-i18n="videoConfig.step.file">1. Fichier</span>
+          <span class="step-sep">›</span>
+          <span class="step" data-i18n="videoConfig.step.mode">2. Mode</span>
+          <span class="step-sep">›</span>
+          <span class="step" data-i18n="videoConfig.step.lang">3. Langue</span>
+        </div>
+      </div>
+
+      <div class="config-scroll">
+        <section class="config-section">
+          <div class="section-num">1</div>
+          <div class="section-body">
+            <h3 data-i18n="videoConfig.step1.title">Quelle vidéo veux-tu analyser ?</h3>
+            <div class="drop-zone" id="drop-zone">
+              <div class="dz-idle" id="dz-idle">
+                <div class="dz-icon">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="6" y="10" width="36" height="28" rx="4"/>
+                    <path d="M20 24l8-6 8 6" opacity=".5"/>
+                    <path d="M24 18v12M20 30h8"/>
+                  </svg>
+                </div>
+                <p class="dz-main" data-i18n="videoConfig.dropzone.main">Glisse ta vidéo ici</p>
+                <p class="dz-sub" data-i18n="videoConfig.dropzone.sub">MP4, MOV, MKV, AVI — ou</p>
+                <button class="btn-browse-zone" id="btn-browse" data-i18n="videoConfig.dropzone.btn">Choisir un fichier</button>
+              </div>
+              <div class="dz-selected" id="dz-selected" style="display:none">
+                <div class="dz-file-icon">🎬</div>
+                <div class="dz-file-info">
+                  <span class="dz-filename" id="dz-filename"></span>
+                  <span class="dz-filesize" id="dz-filesize"></span>
+                </div>
+                <button class="dz-change" id="btn-change-file" data-i18n="videoConfig.dropzone.change">Changer</button>
+              </div>
+            </div>
+            <input type="hidden" id="video-path" />
+          </div>
+        </section>
+
+        <section class="config-section">
+          <div class="section-num">2</div>
+          <div class="section-body">
+            <h3 data-i18n="videoConfig.step2.title">Que veux-tu faire ?</h3>
+            <div class="mode-cards">
+              <label class="mode-card-opt selected" data-mode="Q&A">
+                <input type="radio" name="video-mode" value="Q&A" checked />
+                <div class="mco-icon">💬</div>
+                <div class="mco-body">
+                  <span class="mco-title" data-i18n="videoConfig.qa.title">Poser des questions</span>
+                  <span class="mco-desc" data-i18n="videoConfig.qa.desc">Discute avec l'IA sur le contenu de ta vidéo</span>
+                </div>
+                <div class="mco-check">✓</div>
+              </label>
+              <label class="mode-card-opt" data-mode="Clip Detection">
+                <input type="radio" name="video-mode" value="Clip Detection" />
+                <div class="mco-icon">✂️</div>
+                <div class="mco-body">
+                  <span class="mco-title" data-i18n="videoConfig.clips.title">Créer des clips</span>
+                  <span class="mco-desc" data-i18n="videoConfig.clips.desc">Détecte et exporte automatiquement les meilleurs moments</span>
+                </div>
+                <div class="mco-check">✓</div>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section class="config-section">
+          <div class="section-num">3</div>
+          <div class="section-body">
+            <h3 data-i18n="videoConfig.step3.title">Dans quelle langue est la vidéo ?</h3>
+            <div class="lang-grid" id="lang-grid-video">
+              <button class="lang-btn selected" data-value="auto">🌐 Auto</button>
+              <button class="lang-btn" data-value="fr">🇫🇷 Français</button>
+              <button class="lang-btn" data-value="en">🇺🇸 English</button>
+              <button class="lang-btn" data-value="es">🇪🇸 Español</button>
+              <button class="lang-btn" data-value="de">🇩🇪 Deutsch</button>
+              <button class="lang-btn" data-value="it">🇮🇹 Italiano</button>
+              <button class="lang-btn" data-value="pt">🇧🇷 Português</button>
+              <button class="lang-btn" data-value="ar">🇸🇦 عربي</button>
+              <button class="lang-btn" data-value="ja">🇯🇵 日本語</button>
+              <button class="lang-btn" data-value="zh">🇨🇳 中文</button>
+            </div>
+            <input type="hidden" id="video-language" value="auto" />
+          </div>
+        </section>
+
+        <div class="config-cta">
+          <button class="btn-launch" id="btn-start-video">
+            <span class="btn-launch-icon">⚡</span>
+            <span data-i18n="videoConfig.launch">Lancer l'analyse</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-stream-config" class="screen">
+      <div class="nav-bar">
+        <button class="btn-back" id="back-stream-config">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
+          <span data-i18n="nav.back">Retour</span>
+        </button>
+      </div>
+
+      <div class="config-scroll">
+        <div class="stream-hero">
+          <div class="live-dot-anim"></div>
+          <h2 data-i18n="streamConfig.title">Surveillance live</h2>
+          <p data-i18n="streamConfig.subtitle">Connecte-toi à un stream Twitch pour poser des questions en temps réel</p>
+        </div>
+
+        <section class="config-section">
+          <div class="section-num">1</div>
+          <div class="section-body">
+            <h3 data-i18n="streamConfig.step1.title">URL du stream Twitch</h3>
+            <div class="url-input-wrap">
+              <span class="url-prefix">twitch.tv/</span>
+              <input type="text" id="stream-url-short" placeholder="nom_de_la_chaine" data-i18n-placeholder="streamConfig.placeholder" />
+            </div>
+            <input type="hidden" id="stream-url" />
+          </div>
+        </section>
+
+        <section class="config-section">
+          <div class="section-num">2</div>
+          <div class="section-body">
+            <h3 data-i18n="streamConfig.step2.title">Langue du stream</h3>
+            <div class="lang-grid" id="lang-grid-stream">
+              <button class="lang-btn selected" data-value="auto">🌐 Auto</button>
+              <button class="lang-btn" data-value="fr">🇫🇷 Français</button>
+              <button class="lang-btn" data-value="en">🇺🇸 English</button>
+              <button class="lang-btn" data-value="es">🇪🇸 Español</button>
+              <button class="lang-btn" data-value="de">🇩🇪 Deutsch</button>
+              <button class="lang-btn" data-value="it">🇮🇹 Italiano</button>
+            </div>
+            <input type="hidden" id="stream-language" value="auto" />
+          </div>
+        </section>
+
+        <div class="config-cta">
+          <button class="btn-launch btn-launch--live" id="btn-start-stream">
+            <span class="btn-launch-icon">◉</span>
+            <span data-i18n="streamConfig.launch">Commencer la surveillance</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-processing" class="screen">
+      <div class="proc-header">
+        <div class="proc-anim">
+          <div class="proc-rings">
+            <div class="ring ring1"></div>
+            <div class="ring ring2"></div>
+            <div class="ring ring3"></div>
+          </div>
+        </div>
+        <div>
+          <h2 id="proc-title">Analyse en cours…</h2>
+          <p id="proc-subtitle" class="proc-sub">Préparation…</p>
+        </div>
+      </div>
+
+      <div class="proc-body">
+        <div class="progress-track">
+          <div class="progress-bar" id="progress-bar" style="width:3%">
+            <div class="progress-shimmer"></div>
+          </div>
+          <span class="progress-pct" id="progress-pct">3%</span>
+        </div>
+
+        <div class="steps-list" id="steps-list">
+        </div>
+
+        <div class="log-toggle-wrap">
+          <button class="log-toggle" id="log-toggle">
+            <span class="log-toggle-icon" id="log-toggle-icon">▶</span>
+            Voir les détails techniques
+          </button>
+        </div>
+        <div class="log-collapse" id="log-collapse" style="display:none">
+          <div class="log-terminal" id="log-terminal"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-video-qa" class="screen">
+      <div class="nav-bar nav-bar--qa">
+        <button class="btn-back" id="back-video-qa">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
+          <span data-i18n="nav.newAnalysis">Nouvelle analyse</span>
+        </button>
+        <div class="tabs" id="tabs-qa">
+          <button class="tab active" data-tab="chat">💬 Chat</button>
+          <button class="tab" data-tab="stats">📊 Infos</button>
+        </div>
+      </div>
+
+      <div class="tab-panel active" id="panel-chat">
+        <div class="chat-messages" id="chat-messages">
+          <div class="chat-welcome">
+            <div class="chat-welcome-icon">🤖</div>
+            <div class="chat-welcome-text">
+              <strong>Prêt !</strong> L'analyse est terminée. Pose-moi n'importe quelle question sur la vidéo.
+            </div>
+          </div>
+          <div class="suggestions" id="suggestions">
+            <p class="suggestions-label">Suggestions :</p>
+            <button class="suggestion-chip" data-q="De quoi parle cette vidéo ?">De quoi parle cette vidéo ?</button>
+            <button class="suggestion-chip" data-q="Résume les points clés">Résume les points clés</button>
+            <button class="suggestion-chip" data-q="Qui sont les personnes présentes ?">Qui est présent ?</button>
+            <button class="suggestion-chip" data-q="Quels sont les moments les plus importants ?">Moments importants</button>
+          </div>
+        </div>
+        <div class="chat-bar">
+          <input type="text" id="chat-input" placeholder="Pose ta question…" />
+          <button class="btn-send" id="btn-send">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 10l16-8-6 8 6 8z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="panel-stats">
+        <div class="stats-grid" id="stats-grid">
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-stream-qa" class="screen">
+
+      <div class="stream-nav">
+        <button class="btn-back" id="back-stream-qa">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
+          <span data-i18n="nav.stop">Arrêter</span>
+        </button>
+        <div class="live-indicator">
+          <span class="live-dot"></span>
+          EN DIRECT
+        </div>
+        <div class="stream-counters">
+          <span class="stream-counter" id="ctr-visual" title="Visions">
+            <span class="ctr-icon">👁️</span>
+            <span id="cnt-visual">0</span>
+          </span>
+          <span class="stream-counter" id="ctr-summary" title="Résumés IA">
+            <span class="ctr-icon">🤖</span>
+            <span id="cnt-summary">0</span>
+          </span>
+        </div>
+        <div class="stream-nav-tabs" id="stream-nav-tabs">
+          <button class="snav-tab active" data-panel="stream-feed">📡 En direct</button>
+          <button class="snav-tab" data-panel="stream-qa">💬 Questions</button>
+          <button class="snav-tab" data-panel="stream-clips">✂️ Clips</button>
+        </div>
+        <button class="btn-create-clips" id="btn-create-clips" disabled title="Crée des clips à partir du stream enregistré">
+          ✂️ Créer des clips
+        </button>
+      </div>
+
+      <div class="stream-panel active" id="stream-feed">
+        <div class="feed-header">
+          <span class="feed-title">Fil en direct</span>
+          <span class="feed-hint">Ce que l'IA voit et entend en temps réel</span>
+        </div>
+        <div class="event-feed" id="event-feed">
+          <div class="feed-empty" id="feed-empty">
+            <div class="feed-empty-anim">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <p>En attente des premiers événements…</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="stream-panel" id="stream-qa">
+        <div class="chat-messages" id="stream-chat-messages">
+          <div class="stream-wait-qa" id="stream-wait-qa">
+            <div class="wait-icon">⏳</div>
+            <p class="wait-label">Questions disponibles après <strong id="wait-threshold">10</strong> événements</p>
+            <div class="wait-progress-track">
+              <div class="wait-progress-fill" id="wait-progress-fill" style="width:0%"></div>
+            </div>
+            <p class="wait-count" id="wait-count-label">0 / 10</p>
+          </div>
+        </div>
+        <div class="chat-bar" id="stream-chat-bar" style="display:none">
+          <input type="text" id="stream-chat-input" placeholder="Pose ta question sur le stream…" />
+          <button class="btn-send" id="btn-stream-send">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 10l16-8-6 8 6 8z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="stream-panel" id="stream-clips">
+        <div class="stream-clips-empty" id="stream-clips-empty">
+          <div class="sce-icon">✂️</div>
+          <p class="sce-title">Créer des clips depuis ce stream</p>
+          <p class="sce-desc">L'IA analysera les meilleurs moments enregistrés et générera des clips viraux.</p>
+          <button class="btn-launch" id="btn-create-clips-2" disabled>
+            <span class="btn-launch-icon">✂️</span>
+            Générer les clips
+          </button>
+          <p class="sce-note" id="sce-note">En attente de suffisamment de données…</p>
+        </div>
+        <div class="stream-clips-creating" id="stream-clips-creating" style="display:none">
+          <div class="proc-rings" style="width:48px;height:48px">
+            <div class="ring ring1"></div><div class="ring ring2"></div><div class="ring ring3"></div>
+          </div>
+          <p>Détection et création des clips en cours…</p>
+          <div class="log-terminal" id="stream-clips-log" style="height:120px;margin-top:14px;width:100%;max-width:560px"></div>
+        </div>
+        <div class="clips-grid" id="stream-clips-grid" style="display:none"></div>
+      </div>
+
+    </div>
+
+    <div id="screen-clips" class="screen">
+      <div class="nav-bar">
+        <button class="btn-back" id="back-clips">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
+          <span data-i18n="nav.newAnalysis">Nouvelle analyse</span>
+        </button>
+        <div class="clips-header-info">
+          <span id="clips-count-label">0 clips détectés</span>
+        </div>
+      </div>
+
+      <div class="clips-filters" id="clips-filters">
+        <button class="filter-btn active" data-cat="all">Tous</button>
+        <!-- rempli dynamiquement -->
+      </div>
+
+      <div class="clips-grid" id="clips-grid"></div>
+
+      <div class="no-clips" id="no-clips" style="display:none">
+        <div class="no-clips-icon">🎬</div>
+        <p>Aucun moment viral détecté dans cette vidéo.</p>
+        <p class="no-clips-sub">Essaie avec une vidéo contenant des dialogues, des réactions ou des moments forts.</p>
+      </div>
+    </div>
+
+    <div id="screen-settings" class="screen">
+      <div class="nav-bar">
+        <button class="btn-back" id="back-settings">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
+          <span data-i18n="nav.back">Retour</span>
+        </button>
+        <span class="nav-settings-title" data-i18n="settings.title">Mon compte</span>
+      </div>
+
+      <div class="config-scroll settings-scroll">
+
+        <section class="config-section">
+          <div class="section-num">👤</div>
+          <div class="section-body">
+            <h3 data-i18n="settings.section.account">Compte</h3>
+            <div class="settings-field">
+              <label data-i18n="settings.username.label">Nom d'utilisateur</label>
+              <input type="text" id="settings-username" data-i18n-placeholder="settings.username.placeholder" placeholder="Votre nom" class="settings-input" />
+            </div>
+          </div>
+        </section>
+
+        <section class="config-section">
+          <div class="section-num">🌐</div>
+          <div class="section-body">
+            <h3 data-i18n="settings.section.interface">Interface</h3>
+            <div class="settings-field">
+              <label data-i18n="settings.lang.label">Langue de l'interface</label>
+              <div class="lang-grid" id="settings-lang-grid">
+                <button class="lang-btn selected" data-value="fr" data-i18n="settings.lang.fr">🇫🇷 Français</button>
+                <button class="lang-btn" data-value="en" data-i18n="settings.lang.en">🇺🇸 English</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="config-section">
+          <div class="section-num">💾</div>
+          <div class="section-body">
+            <h3 data-i18n="settings.section.storage">Stockage</h3>
+            <div class="settings-field">
+              <label data-i18n="settings.saveDir.label">Répertoire de sauvegarde</label>
+              <p class="settings-desc" data-i18n="settings.saveDir.desc">Les analyses et clips seront sauvegardés dans ce répertoire.</p>
+              <div class="settings-dir-row">
+                <span class="settings-dir-path" id="settings-save-dir">—</span>
+                <button class="btn-pick-dir" id="btn-pick-dir" data-i18n="settings.saveDir.btn">Choisir…</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="config-cta">
+          <button class="btn-launch" id="btn-save-settings">
+            <span class="btn-launch-icon">💾</span>
+            <span data-i18n="settings.save">Sauvegarder</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

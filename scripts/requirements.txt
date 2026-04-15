@@ -1,0 +1,11 @@
+insightface
+onnxruntime
+numpy
+scikit-learn
+opencv-python-headless
+ultralytics
+whisperx
+python-dotenv
+transformers
+torch
+Pillow
