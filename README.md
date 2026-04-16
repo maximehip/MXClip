@@ -10,7 +10,23 @@
 
 ---
 
-<video src="assets/demo.mp4" controls width="100%"></video>
+![MXCLip demo](assets/demo.gif)
+
+## Screenshots
+
+### GUI — Home screen
+<img src="assets/First View In GUI.png" alt="MXCLip home screen" width="100%"/>
+
+### GUI — Detected clips
+<img src="assets/Clip Detected in GUI.png" alt="Detected clips in GUI" width="100%"/>
+
+### GUI — Extracted clip
+<img src="assets/Clip extrait.png" alt="Extracted clip preview" width="40%"/>
+
+### CLI — Performance analysis output
+<img src="assets/Performance Analyse CLI.png" alt="CLI performance analysis" width="100%"/>
+
+---
 
 ## Why MXClip ?
 
