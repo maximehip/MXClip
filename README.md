@@ -10,21 +10,31 @@
 
 ---
 
-![MXCLip demo](assets/demo.gif)
+<p align="center">
+  <img src="assets/demo.gif" alt="MXCLip demo" width="80%"/>
+</p>
+
+---
 
 ## Screenshots
 
-### GUI — Home screen
-<img src="assets/First View In GUI.png" alt="MXCLip home screen" width="100%"/>
+<p align="center">
+  <img src="assets/First View In GUI.png" alt="Home screen" width="48%"/>
+  &nbsp;
+  <img src="assets/Clip Detected in GUI.png" alt="Detected clips" width="48%"/>
+</p>
+<p align="center">
+  <em>Home screen &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Detected clips with scores</em>
+</p>
 
-### GUI — Detected clips
-<img src="assets/Clip Detected in GUI.png" alt="Detected clips in GUI" width="100%"/>
-
-### GUI — Extracted clip
-<img src="assets/Clip extrait.png" alt="Extracted clip preview" width="40%"/>
-
-### CLI — Performance analysis output
-<img src="assets/Performance Analyse CLI.png" alt="CLI performance analysis" width="100%"/>
+<p align="center">
+  <img src="assets/Clip extrait.png" alt="Extracted clip" width="28%"/>
+  &nbsp;&nbsp;&nbsp;
+  <img src="assets/Performance Analyse CLI.png" alt="CLI output" width="60%"/>
+</p>
+<p align="center">
+  <em>Extracted clip &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CLI performance analysis</em>
+</p>
 
 ---
 
